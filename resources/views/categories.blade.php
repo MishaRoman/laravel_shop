@@ -19,7 +19,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="http://internet-shop.tmweb.ru">Интернет Магазин</a>
+            <a class="navbar-brand" href="/">Интернет Магазин</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -50,34 +50,22 @@
 
 <div class="container">
     <div class="starter-template">
-                                    <div class="panel">
-            <a href="http://internet-shop.tmweb.ru/mobiles">
+
+        @foreach($categories as $category)
+
+        <div class="panel">
+            <a href="/{{ $category->code }}">
                 <img src="http://internet-shop.tmweb.ru/storage/categories/mobile.jpg">
-                <h2>Мобильные телефоны</h2>
+                <h2>{{ $category->name }}</h2>
             </a>
             <p>
-                В этом разделе вы найдёте самые популярные мобильные телефонамы по отличным ценам!
+                {{ $category->description }}
             </p>
         </div>
-            <div class="panel">
-            <a href="http://internet-shop.tmweb.ru/portable">
-                <img src="http://internet-shop.tmweb.ru/storage/categories/portable.jpg">
-                <h2>Портативная техника</h2>
-            </a>
-            <p>
-                Раздел с портативной техникой.
-            </p>
-        </div>
-            <div class="panel">
-            <a href="http://internet-shop.tmweb.ru/appliances">
-                <img src="http://internet-shop.tmweb.ru/storage/categories/appliance.jpg">
-                <h2>Бытовая техника</h2>
-            </a>
-            <p>
-                Раздел с бытовой техникой
-            </p>
-        </div>
-        </div>
+
+        @endforeach
+
+    </div>
 </div>
 </body>
 </html>
