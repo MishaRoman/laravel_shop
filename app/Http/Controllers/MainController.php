@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Product;
 
 class MainController extends Controller
 {
     public function home() {
-        return view('home');
+        $products = Product::get();
+        return view('home', compact('products'));
     }
 
     public function categories() {
