@@ -22,14 +22,6 @@ class MainController extends Controller
         return view('product', ['product' => $product]);
     }
 
-    public function basket() {
-        return view('basket');
-    }
-
-    public function basketPlace() {
-        return view('order');
-    }
-
     public function category($code) {
         $category = Category::where('code', $code)->first();
         return view('category', compact('category'));
