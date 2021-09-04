@@ -1,9 +1,8 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('title', 'Все категории')
 
 @section('content')
-    <div class="starter-template">
 
         @foreach($categories as $category)
 
@@ -18,6 +17,4 @@
         </div>
 
         @endforeach
-
-    </div>
 @endsection

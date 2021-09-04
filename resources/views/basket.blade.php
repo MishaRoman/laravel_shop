@@ -1,11 +1,9 @@
-@extends('layout')
+@extends('layouts.layout')
 
 @section('title', 'Корзина')
 
 @section('content')
-<div class="starter-template">
-                    <p class="alert alert-success">Добавлен товар iPhone X 256GB</p>
-                            <h1>Корзина</h1>
+    <h1>Корзина</h1>
     <p>Оформление заказа</p>
     <div class="panel">
         <table class="table table-striped">
@@ -54,8 +52,7 @@
         </table>
         <br>
         <div class="btn-group pull-right" role="group">
-            <a type="button" class="btn btn-success" href="http://internet-shop.tmweb.ru/basket/place">Оформить заказ</a>
+            <a type="button" class="btn btn-success" href="{{ route('basket-place') }}">Оформить заказ</a>
         </div>
-    </div>
     </div>
 @endsection
