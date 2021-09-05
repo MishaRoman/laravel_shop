@@ -29,7 +29,12 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+
+    protected function redirectTo()
+    {
+        return route('orders');
+    }
+
 
     /**
      * Create a new controller instance.
