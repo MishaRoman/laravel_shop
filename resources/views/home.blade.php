@@ -1,41 +1,23 @@
-@extends('layouts.layout')
-
-@section('title', 'Главная')
+@extends('layouts.app')
 
 @section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Dashboard') }}</div>
 
-    <h1>Все товары</h1>
-    <form method="GET" action="http://internet-shop.tmweb.ru">
-        <div class="filters row">
-            <div class="col-sm-6 col-md-3">
-                <label for="price_from">Цена от                    <input type="text" name="price_from" id="price_from" size="6" value="">
-                </label>
-                <label for="price_to">до                    <input type="text" name="price_to" id="price_to" size="6"  value="">
-                </label>
-            </div>
-            <div class="col-sm-2 col-md-2">
-                <label for="hit">
-                    <input type="checkbox" name="hit" id="hit" > Хит                </label>
-            </div>
-            <div class="col-sm-2 col-md-2">
-                <label for="new">
-                    <input type="checkbox" name="new" id="new" > Новинка                </label>
-            </div>
-            <div class="col-sm-2 col-md-2">
-                <label for="recommend">
-                    <input type="checkbox" name="recommend" id="recommend" > Рекомендуем                </label>
-            </div>
-            <div class="col-sm-6 col-md-3">
-                <button type="submit" class="btn btn-primary">Фильтр</button>
-                <a href="http://internet-shop.tmweb.ru" class="btn btn-warning">Сброс</a>
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    {{ __('You are logged in!') }}
+                </div>
             </div>
         </div>
-    </form>
-    <div class="row">
-        @foreach($products as $product)
-            @include('card', compact('product'))
-        @endforeach
-
     </div>
-
+</div>
 @endsection

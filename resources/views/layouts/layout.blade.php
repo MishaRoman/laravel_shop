@@ -12,7 +12,7 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/starter-template.css" rel="stylesheet">
+    <link href="{{ asset('/css/starter-template.css') }}" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -26,23 +26,31 @@
                 <li ><a href="{{ route('categories') }}">Категории</a>
                 </li>
                 <li ><a href="{{ route('basket') }}">В корзину</a></li>
-                <li><a href="http://internet-shop.tmweb.ru/reset">Сбросить проект в начальное состояние</a></li>
                 <li><a href="http://internet-shop.tmweb.ru/locale/en">en</a></li>
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">₽<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                        role="button" aria-haspopup="true" aria-expanded="false">₽
+                        <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
-                                                    <li><a href="http://internet-shop.tmweb.ru/currency/RUB">₽</a></li>
-                                                    <li><a href="http://internet-shop.tmweb.ru/currency/USD">$</a></li>
-                                                    <li><a href="http://internet-shop.tmweb.ru/currency/EUR">€</a></li>
-                                            </ul>
+                        <li><a href="http://internet-shop.tmweb.ru/currency/RUB">₽</a></li>
+                        <li><a href="http://internet-shop.tmweb.ru/currency/USD">$</a></li>
+                        <li><a href="http://internet-shop.tmweb.ru/currency/EUR">€</a></li>
+                    </ul>
                 </li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                                    <li><a href="http://internet-shop.tmweb.ru/login">Войти</a></li>
-                
-                            </ul>
+             <ul class="nav navbar-nav navbar-right">
+                @guest
+                    <li><a href="{{ route('login') }}">Панель администратора</a></li>
+                @endguest
+
+                @auth
+                    <li><a href="{{ route('home') }}">Панель администратора</a></li>
+                    <li><a href="{{ route('get-logout') }}">Выйти</a></li>
+                @endauth
+            </ul>
         </div>
     </div>
 </nav>

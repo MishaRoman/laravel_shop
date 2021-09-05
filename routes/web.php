@@ -3,7 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\BasketController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
 
+
+Auth::routes([
+	'reset' => false,
+	'confirm' => false,
+	'verify' => false,
+
+]);
+
+Route::get('/logout', [LoginController::class, 'logout'])->name('get-logout');
+
+Route::get('/home', [HomeController::class, 'index'])->name('index');
 
 Route::get('/',  [MainController::class, 'home'])->name('home');
 
@@ -18,6 +31,7 @@ Route::post('/basket/remove/{id}', [BasketController::class, 'basketRemove'])->n
 Route::get('/{category}', [MainController::class, 'category'])->name('category');
 
 Route::get('/{category}/{param?}', [MainController::class, 'product'])->name('product');
+
 
 
 
