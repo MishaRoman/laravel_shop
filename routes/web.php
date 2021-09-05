@@ -18,16 +18,25 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('get-logout');
 
 Route::get('/', [MainController::class, 'home'])->name('home');
 
-
-Route::get('orders',  [OrderController::class, 'orders'])->name('orders');
+Route::group(['middleware' => 'is_admin'], function() {
+	Route::get('orders',  [OrderController::class, 'orders'])->name('orders');
+});
 
 Route::get('/categories', [MainController::class, 'categories'])->name('categories');
 
-Route::get('/basket', [BasketController::class, 'basket'])->name('basket');
-Route::get('/basket/place', [BasketController::class, 'basketPlace'])->name('basket-place');
-Route::post('/basketconfirm', [BasketController::class, 'basketConfirm'])->name('basket-confirm');
-Route::post('/basket/add/{id}', [BasketController::class, 'basketAdd'])->name('basket-add');
-Route::post('/basket/remove/{id}', [BasketController::class, 'basketRemove'])->name('basket-remove');
+Route::group(['prefix'	 => 'basket',], function() {
+	Route::post('/basket/add/{id}', [BasketController::class, 'basketAdd'])->name('basket-add');
+
+	Route::group([
+		'middleware' => 'basket_not_empty',	
+	], function() {	
+		Route::get('/', [BasketController::class, 'basket'])->name('basket');
+		Route::get('/place', [BasketController::class, 'basketPlace'])->name('basket-place');
+		Route::post('/confirm', [BasketController::class, 'basketConfirm'])->name('basket-confirm');
+		Route::post('/remove/{id}', [BasketController::class, 'basketRemove'])->name('basket-remove');
+	});
+});
+
 
 Route::get('/{category}', [MainController::class, 'category'])->name('category');
 
