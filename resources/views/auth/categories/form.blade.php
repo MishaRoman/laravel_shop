@@ -30,14 +30,24 @@
                         <div class="row">
                             <label for="code" class="col-sm-2 col-form-label">Код: </label>
                             <div class="col-sm-6">
+                                @error('code')
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                                 <input type="text" class="form-control" name="code" id="code"
-                                       value="{{ $category->code ?? "" }}">
+                                       value="{{ old('code', isset($category) ? $category->code : null) }}">
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <label for="name" class="col-sm-2 col-form-label">Название: </label>
                             <div class="col-sm-6">
+                                @error('name')
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                                 <input type="text" class="form-control" name="name" id="name"
                                        value="{{ $category->name ?? "" }}">
                             </div>
@@ -46,6 +56,11 @@
                         <div class="row">
                             <label for="description" class="col-sm-2 col-form-label">Описание: </label>
                             <div class="col-sm-6">
+                                @error('description')
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
 							<textarea name="description" id="description" cols="72"
                                       rows="7">{{ $category->description ?? "" }}</textarea>
                             </div>
