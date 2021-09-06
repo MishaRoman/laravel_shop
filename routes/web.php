@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Auth\LoginController;
 
 
@@ -18,8 +19,17 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('get-logout');
 
 Route::get('/', [MainController::class, 'home'])->name('home');
 
-Route::group(['middleware' => 'is_admin'], function() {
-	Route::get('orders',  [OrderController::class, 'orders'])->name('orders');
+
+
+Route::group([
+	'prefix' => 'admin',
+	'middleware' => 'auth',
+	], function() {
+	Route::resource('categories', CategoryController::class);
+
+	Route::group(['middleware' => 'is_admin'], function() {
+		Route::get('orders',  [OrderController::class, 'orders'])->name('orders');
+	});
 });
 
 Route::get('/categories', [MainController::class, 'categories'])->name('categories');
