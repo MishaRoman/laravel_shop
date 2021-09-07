@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 
 @section('title', 'Заказы')
 
@@ -37,7 +37,11 @@
                     <td>
                         <div class="btn-group" role="group">
                             <a class="btn btn-success" type="button"
-                               href="http://laravel-diplom-1.rdavydov.ru/admin/orders/1">Открыть</a>
+                            @admin
+                               href="{{ route('orders.show', $order) }}"
+                            @endadmin
+                                href="{{ route('person.orders.show', $order) }}"
+                            >Открыть</a>
                         </div>
                     </td>
                 </tr>

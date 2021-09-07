@@ -32,10 +32,11 @@
 
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="{{ route('home') }}">Все товары</a></li>
-                    <li ><a href="{{ route('categories') }}">Категории</a>
-                    </li>
-                    <li ><a href="{{ route('basket') }}">В корзину</a></li>
+                    @admin
+                        <li class="active"><a href="{{ route('home') }}">Все товары</a></li>
+                        <li ><a href="{{ route('categories') }}">Категории</a></li>
+                        <li ><a href="{{ route('basket') }}">В корзину</a></li>
+                    @endadmin
                 </ul>
 
                 @guest

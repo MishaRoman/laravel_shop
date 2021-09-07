@@ -23,14 +23,15 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function home()
-    {
-        return view('home');
-    }
 
     public function orders()
     {
         $orders = Order::where('status', 1)->get();
         return view('auth.orders.index', compact('orders'));
+    }
+
+    public function show(Order $order)
+    {
+        return view('auth.orders.show', compact('order'));
     }
 }
