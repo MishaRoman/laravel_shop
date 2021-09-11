@@ -3,8 +3,7 @@
 @section('title', 'Товар')
 
 @section('content')
-    <h2>{{ $product->name }}</h2>
-    <h1>iPhone X 64GB</h1>
+    <h1>{{ $product->name }}</h1>
     <h2>{{ $product->category->name }}</h2>
     <p>Цена: <b>{{ $product->price }} ₽</b></p>
     <img src="{{ Storage::url($product->image) }}">

@@ -25,6 +25,7 @@
                 <li @routeactive('home')><a href="{{ route('home') }}">Все товары</a></li>
                 <li @routeactive('categor*')><a href="{{ route('categories') }}">Категории</a>
                 <li @routeactive('basket*')><a href="{{ route('basket') }}">В корзину</a></li>
+                <li><a href="{{ route('reset') }}">Сбросить проект в начальное состояние</a></li>
                 <li><a href="#">en</a></li>
 
                 <li class="dropdown">
@@ -47,7 +48,7 @@
 
                 @auth
                     @admin
-                        <li><a href="{{ route('home') }}">Панель администратора</a></li>
+                        <li><a href="{{ route('orders') }}">Панель администратора</a></li>
                     @else
                         <li><a href="{{ route('person.orders.index') }}">Мои заказы</a></li>
                     @endadmin
