@@ -71,7 +71,7 @@ class BasketController extends Controller
 
         $product = Product::find($productId);
 
-        session()->flash('success', 'Добавлен товар' . $product->name);
+        session()->flash('success', 'Добавлен товар ' . $product->name);
 
         return redirect()->route('basket');
     }
