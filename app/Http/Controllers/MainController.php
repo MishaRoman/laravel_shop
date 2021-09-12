@@ -9,7 +9,7 @@ use App\Models\Product;
 class MainController extends Controller
 {
     public function home(ProductsFilterRequest $request) {
-        $productQuery = Product::query();
+        $productQuery = Product::with('category');
 
         if($request->filled('price_from')) {
             $productQuery->where('price', '>=', $request->price_from);
