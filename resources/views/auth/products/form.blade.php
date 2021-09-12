@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 
 @isset($product)
     @section('title', 'Редактировать товар ' . $product->name)
