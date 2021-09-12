@@ -10,9 +10,11 @@
     <p>{{ $product->description }}</p>
 
     <form action="{{ route('basket-add', $product->id) }}" method="POST">
-
-        <button type="submit" class="btn btn-success" role="button">Добавить в корзину</button>
-
+        @if($product->isAvailable())
+            <button class="btn btn-primary" role="button" type="submit">Добавить в корзину</button>
+        @else
+            <a class="btn btn-danger">Нет в наличии</a>
+        @endif
         @csrf
     </form>
 @endsection
