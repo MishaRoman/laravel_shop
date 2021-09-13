@@ -35,8 +35,22 @@ Class Basket
 		return $this->order;
 	}
 
+	public function countAvailable()
+	{
+		foreach ($this->order->products as $orderProduct)
+        {
+            if ($orderProduct->count < $this->getPivotRow($orderProduct)->count) {
+                return false;
+            }
+        }
+        return true;
+	}
+
 	public function saveOrder($name, $phone)
 	{
+		if(!$this->countAvailable()) {
+			return false;
+		}
 		return $this->order->saveOrder($name, $phone);
 	}
 
@@ -50,12 +64,20 @@ Class Basket
 		if($this->order->products->contains($product->id)) {
             $pivotRow = $this->getPivotRow($product);
             $pivotRow->count++;
+            if($pivotRow->count > $product->count) {
+            	return false;
+            }
             $pivotRow->update();
         } else {
+        	if($product->count == 0) {
+        		return false;
+        	}
             $this->order->products()->attach($product->id);
         }
 
         Order::changeFullPrice($product->price);
+
+        return true;
 	}
 
 	public function removeProduct(Product $product)

@@ -19,7 +19,12 @@ class BasketController extends Controller
 
     public function basketPlace()
     {
-        $order = (new Basket())->getOrder();
+        $basket = new Basket();
+        $order = $basket->getOrder();
+        if(!$basket->countAvailable()) {
+            session()->flash('warning', "Товар недоступен для заказа в полном объеме");
+            return redirect()->route('basket');
+        }
 
         return view('order', compact('order'));
     }
@@ -42,9 +47,12 @@ class BasketController extends Controller
 
     public function basketAdd(Product $product)
     {
-        (new Basket(true))->addProduct($product);
-
-        session()->flash('success', 'Добавлен товар ' . $product->name);
+        $result = (new Basket(true))->addProduct($product);
+        if($result) {
+            session()->flash('success', "Добавлен товар $product->name");
+        } else {
+            session()->flash('warning', "Товар $product->name в большем количестве недоступен для заказа");
+        }
 
         return redirect()->route('basket');
     }
@@ -53,7 +61,7 @@ class BasketController extends Controller
     {
         (new Basket())->removeProduct($product);
 
-        session()->flash('warning', 'Удален товар ' . $product->name);
+        session()->flash('warning', "Удален товар $product->name");
 
         return redirect()->route('basket');
     }
