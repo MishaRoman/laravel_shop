@@ -6,8 +6,9 @@ use App\Http\Requests\ProductsFilterRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subscription;
-use Illuminate\Http\Request;
 use App\Http\Requests\SubscriptionRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 
 class MainController extends Controller
@@ -60,5 +61,17 @@ class MainController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'При появлении товара письмо придет вам на указанную почту');
+    }
+
+    public function changeLocale($locale)
+    {
+        $availableLocales = ['ru', 'en'];
+        if (!in_array($locale, $availableLocales)) {
+            $locale = config('app.locale');
+        }
+        session(['locale' => $locale]);
+        App::setLocale($locale);
+
+        return redirect()->back();
     }
 }
