@@ -67,7 +67,7 @@ Route::get('/{category}', [MainController::class, 'category'])->name('category')
 
 Route::get('/{category}/{param?}', [MainController::class, 'product'])->name('product');
 
-
+Route::post('subscription/{product}', [MainController::class, 'subscribe'])->name('subscription');
 
 
 

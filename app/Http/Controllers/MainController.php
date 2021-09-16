@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductsFilterRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Subscription;
+use Illuminate\Http\Request;
+use App\Http\Requests\SubscriptionRequest;
+
 
 class MainController extends Controller
 {
-    public function home(ProductsFilterRequest $request) {
+    public function home(ProductsFilterRequest $request)
+    {
         $productQuery = Product::with('category');
 
         if($request->filled('price_from')) {
@@ -29,18 +34,31 @@ class MainController extends Controller
         return view('index', compact('products'));
     }
 
-    public function categories() {
+    public function categories()
+    {
         $categories = Category::get();
         return view('categories', compact('categories'));
     }
 
-    public function product($category, $productCode) {
-        $product = Product::withTrashed()->byCode($productCode)->first();
+    public function product($category, $productCode)
+    {
+        $product = Product::withTrashed()->byCode($productCode)->firstOrFail();
         return view('product', compact('product'));
     }
 
-    public function category($code) {
+    public function category($code)
+    {
         $category = Category::where('code', $code)->firstOrFail();
         return view('category', compact('category'));
+    }
+
+    public function subscribe(SubscriptionRequest $request, Product $product)
+    {
+        Subscription::create([
+            'email' => $request->email,
+            'product_id' => $product->id,
+        ]);
+
+        return redirect()->back()->with('success', 'При появлении товара письмо придет вам на указанную почту');
     }
 }

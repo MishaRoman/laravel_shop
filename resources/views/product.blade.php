@@ -9,12 +9,23 @@
     <img src="{{ Storage::url($product->image) }}">
     <p>{{ $product->description }}</p>
 
-    <form action="{{ route('basket-add', $product->id) }}" method="POST">
-        @if($product->isAvailable())
-            <button class="btn btn-primary" role="button" type="submit">Добавить в корзину</button>
-        @else
-            <a class="btn btn-danger">Нет в наличии</a>
-        @endif
-        @csrf
-    </form>
+     @if($product->isAvailable())
+        <form action="{{ route('basket-add', $product) }}" method="POST">
+            <button type="submit" class="btn btn-success" role="button">Добавить в корзину</button>
+
+            @csrf
+        </form>
+    @else
+
+        <span>Не доступен</span>
+        <br>
+        <span>Сообщить мне, когда товар появится в наличии:</span>
+        @include('layouts.error', ['fieldName' => 'email'])
+        <form method="POST" action="{{ route('subscription', $product) }}">
+            @csrf
+            <input type="email" name="email"></input>
+            <button type="submit">Отправить</button>
+        </form>
+    @endif
+
 @endsection
