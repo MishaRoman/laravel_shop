@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="col-md-12">
-        <h1>Категория Бытовая техника</h1>
+        <h1>Категория {{ $category->name }}</h1>
         <table class="table">
             <tbody>
             <tr>
@@ -28,8 +28,17 @@
                 <td>{{ $category->name }}</td>
             </tr>
             <tr>
+                <td>Название en</td>
+                <td>{{ $category->name_en }}</td>
+            </tr>
+            <tr>
                 <td>Описание</td>
                 <td>{{ $category->description }}</td>
+            </tr>
+            <tr>
+            <tr>
+                <td>Описание en</td>
+                <td>{{ $category->description_en }}</td>
             </tr>
             <tr>
                 <td>Картинка</td>

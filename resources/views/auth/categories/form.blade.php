@@ -39,6 +39,7 @@
                                        value="{{ old('code', isset($category) ? $category->code : null) }}">
                             </div>
                         </div>
+
                         <br>
                         <div class="row">
                             <label for="name" class="col-sm-2 col-form-label">Название: </label>
@@ -52,6 +53,21 @@
                                        value="{{ $category->name ?? "" }}">
                             </div>
                         </div>
+
+                        <br>
+                        <div class="row">
+                            <label for="name_en" class="col-sm-2 col-form-label">Название en: </label>
+                            <div class="col-sm-6">
+                                @error('name_en')
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                                <input type="text" class="form-control" name="name_en" id="name_en"
+                                       value="{{ $category->name_en ?? "" }}">
+                            </div>
+                        </div>
+
                         <br>
                         <div class="row">
                             <label for="description" class="col-sm-2 col-form-label">Описание: </label>
@@ -65,6 +81,21 @@
                                       rows="7">{{ $category->description ?? "" }}</textarea>
                             </div>
                         </div>
+
+                        <br>
+                        <div class="row">
+                            <label for="description_en" class="col-sm-2 col-form-label">Описание en: </label>
+                            <div class="col-sm-6">
+                                @error('description_en')
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            <textarea name="description_en" id="description_en" cols="72"
+                                      rows="7">{{ $category->description_en ?? "" }}</textarea>
+                            </div>
+                        </div>
+
                         <br>
                         <div class="row">
                             <label for="image" class="col-sm-2 col-form-label">Картинка: </label>

@@ -34,6 +34,7 @@
                     </div>
                 </div>
                 <br>
+
                 <div class="row">
                     <label for="name" class="col-sm-2 col-form-label">Название: </label>
                     <div class="col-sm-6">
@@ -43,6 +44,17 @@
                     </div>
                 </div>
                 <br>
+
+                <div class="row">
+                    <label for="name_en" class="col-sm-2 col-form-label">Название en: </label>
+                    <div class="col-sm-6">
+                        @include('layouts.error', ['fieldName' => 'name_en'])
+                        <input type="text" class="form-control" name="name_en" id="name_en"
+                               value="@isset($product){{ $product->name_en }}@endisset">
+                    </div>
+                </div>
+                <br>
+
                 <div class="row">
                     <label for="category_id" class="col-sm-2 col-form-label">Категория: </label>
                     <div class="col-sm-6">
@@ -61,6 +73,7 @@
                     </div>
                 </div>
                 <br>
+
                 <div class="row">
                     <label for="description" class="col-sm-2 col-form-label">Описание: </label>
                     <div class="col-sm-6">
@@ -71,6 +84,18 @@
                     </div>
                 </div>
                 <br>
+
+                <div class="row">
+                    <label for="description_en" class="col-sm-2 col-form-label">Описание en: </label>
+                    <div class="col-sm-6">
+                        @include('layouts.error', ['fieldName' => 'description_en'])
+                        <textarea name="description_en" id="description_en" cols="72"
+                                  rows="7">@isset($product){{ $product->description_en }}@endisset
+                        </textarea>
+                    </div>
+                </div>
+                <br>
+
                 <div class="row">
                     <label for="image" class="col-sm-2 col-form-label">Картинка: </label>
                     <div class="col-sm-10" style="display: flex;">
@@ -80,6 +105,7 @@
                     </div>
                 </div>
                 <br>
+
                 <div class="row">
                     <label for="price" class="col-sm-2 col-form-label">Цена: </label>
                     <div class="col-sm-2">
@@ -89,6 +115,7 @@
                     </div>
                 </div>
                 <br>
+
                 <div class="row">
                     <label for="count" class="col-sm-2 col-form-label">Количество: </label>
                     <div class="col-sm-2">
@@ -98,6 +125,7 @@
                     </div>
                 </div>
                 <br>
+
                 @foreach ([
                     'hit' => 'Хит',
                     'new' => 'Новинка',
