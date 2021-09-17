@@ -40,7 +40,7 @@
                             </form>
                         </div>
                     </td>
-                    <td>{{ $product->price }} ₽</td>
+                    <td>{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</td>
                     <td>{{ $product->getPriceForCount() }} ₽</td>
                 </tr>
                 @endforeach

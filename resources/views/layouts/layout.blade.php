@@ -1,4 +1,3 @@
-#
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,8 +8,8 @@
     <title>@lang('main.online_shop'): @yield('title')</title>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="{{ asset('/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('/css/starter-template.css') }}" rel="stylesheet">
 </head>
@@ -29,14 +28,15 @@
                 <li><a href="{{ route('locale', __('main.set_lang')) }}">@lang('main.set_lang')</a></li>
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                        role="button" aria-haspopup="true" aria-expanded="false">₽
+                    <a href="#" class="dropdown-toggle"
+                        data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        {{ App\Services\CurrencyConversion::getCurrencySymbol() }}
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">₽</a></li>
-                        <li><a href="#">$</a></li>
-                        <li><a href="#">€</a></li>
+                        @foreach (App\Services\CurrencyConversion::getCurrencies() as $currency)
+                            <li><a href="{{ route('currency', $currency->code) }}">{{ $currency->symbol }}</a></li>
+                        @endforeach
                     </ul>
                 </li>
             </ul>
