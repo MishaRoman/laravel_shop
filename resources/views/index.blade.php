@@ -49,6 +49,6 @@
 
     </div>
 
-    {{ $products->render() }}
+    {{ $products->links() }}
 
 @endsection

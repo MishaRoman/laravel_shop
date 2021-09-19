@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderCreated;
+use App\Services\CurrencyConversion;
 
 
 Class Basket
@@ -15,21 +16,20 @@ Class Basket
 
 	public function __construct($createOrder = false) 
 	{
-		$orderId = session('orderId');
-		if(is_null($orderId) && $createOrder) {
+		$order = session('order');
+		if (is_null($order) && $createOrder) {
 
 			$data = [];
 			if (Auth::check()) {
 				$data['user_id'] = Auth::id();
 	        }
 
-			$this->order = Order::create($data);
-			session(['orderId' => $this->order->id]);
-		} else {
-			$this->order = Order::findOrFail($orderId);
+	        $data['currency_id'] = CurrencyConversion::getCurrentCurrencyFromSession();
+
+			$this->order = new Order($data);
+			session(['order' => $this->order]);
 		}
 
-		$this->order = Order::findOrFail($orderId);
 	}
 
 	public function getOrder()
