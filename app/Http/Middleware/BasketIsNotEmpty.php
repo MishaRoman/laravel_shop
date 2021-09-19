@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use App\Models\Order;
 
 class BasketIsNotEmpty
@@ -15,12 +14,12 @@ class BasketIsNotEmpty
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
 
-        $orderId = session('orderId');
+        $order = session('order');
 
-        if (!is_null($orderId) && Order::getFullPrice() > 0) {
+        if (!is_null($order) && $order->getFullPrice() > 0) {
             return $next($request);
         }
 

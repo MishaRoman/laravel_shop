@@ -26,15 +26,15 @@ class Order extends Model
         session()->forget('full_order_sum');
     }
 
-    public static function changeFullPrice($changeSum)
+    public function getFullPrice()
     {
-        $sum = self::getFullPrice() + $changeSum;
-        session(['full_order_sum' => $sum]);
-    }
+        $sum = 0;
 
-    public static function getFullPrice()
-    {
-        return session('full_order_sum', 0);
+        foreach ($this->products as $product) {
+            $sum += $product->price * $product->countInOrder;
+        }
+
+        return $sum;
     }
 
     public function calculateFullPrice()

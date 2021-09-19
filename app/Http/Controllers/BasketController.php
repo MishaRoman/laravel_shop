@@ -49,7 +49,8 @@ class BasketController extends Controller
     public function basketAdd(Product $product)
     {
         $result = (new Basket(true))->addProduct($product);
-        if($result) {
+
+        if ($result) {
             session()->flash('success', "Добавлен товар $product->name");
         } else {
             session()->flash('warning', "Товар $product->name в большем количестве недоступен для заказа");
