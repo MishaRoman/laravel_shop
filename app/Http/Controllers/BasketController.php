@@ -41,8 +41,6 @@ class BasketController extends Controller
             session()->flash('warning', 'Случилась ошибка');
         }
 
-        Order::eraseOrderSum();
-
         return redirect()->route('home');
     }
 

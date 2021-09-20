@@ -16,14 +16,14 @@ class Order extends Model
         return $this->belongsToMany(Product::class)->withPivot(['count', 'price'])->withTimestamps();
     }
 
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', 1);
-    }
-
-    public static function eraseOrderSum()
-    {
-        session()->forget('full_order_sum');
     }
 
     public function getFullPrice()
@@ -48,18 +48,26 @@ class Order extends Model
 
     public function saveOrder($name, $phone)
     {
-        if($this->status == 0) {
             $this->name = $name;
             $this->phone = $phone;
             $this->status = 1;
+            $this->sum = $this->getFullPrice();
             $this->save();
 
-            session()->forget('orderId');
+            $products = $this->products;
+
+            $this->save();
+
+            foreach ($products as $productInOrder) {
+                $this->products()->attach($productInOrder, [
+                    'count' => $productInOrder->countInOrder,
+                    'price' => $productInOrder->price,
+                ]);
+            }
+
+            session()->forget('order');
 
             return true;
-        } else {
-            return false;
-        }
         
     }
 }

@@ -41,18 +41,22 @@ Class Basket
 
 	public function countAvailable($updateCount = false)
 	{
-		foreach ($this->order->products as $orderProduct)
+		$products = collect([]);
+        foreach ($this->order->products as $orderProduct)
         {
-            if ($orderProduct->count < $this->getPivotRow($orderProduct)->count) {
+            $product = Product::find($orderProduct->id);
+            if ($orderProduct->countInOrder > $product->count) {
                 return false;
             }
+
             if ($updateCount) {
-            	$orderProduct->count -= $this->getPivotRow($orderProduct)->count;
+                $product->count -= $orderProduct->countInOrder;
+                $products->push($product);
             }
         }
 
         if ($updateCount) {
-        	$this->order->products->map->save();
+            $products->map->save();
         }
 
         return true;
@@ -63,9 +67,11 @@ Class Basket
 		if (!$this->countAvailable(true)) {
 			return false;
 		}
+		$this->order->saveOrder($name, $phone);
+
 		Mail::to($email)->send(new OrderCreated($name, $this->getOrder()));
 
-		return $this->order->saveOrder($name, $phone);
+		return true;
 	}
 
 	public function addProduct(Product $product)
