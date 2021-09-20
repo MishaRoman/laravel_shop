@@ -5,7 +5,13 @@
 @section('content')
     <h1>{{ $product->__('name') }}</h1>
     <h2>{{ $product->category->name }}</h2>
-    <p>Цена: <b>{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</b></p>
+    <p>Цена: 
+        <b>
+            {{ $product->price }}
+            {{-- Переменная $currencySymbol передана из App\Providers\ViewServiceProvider --}}
+            {{ $currencySymbol }}
+        </b>
+    </p>
     <img src="{{ Storage::url($product->image) }}">
     <p>{{ $product->__('description') }}</p>
 

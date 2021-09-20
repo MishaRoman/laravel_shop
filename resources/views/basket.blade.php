@@ -40,13 +40,14 @@
                             </form>
                         </div>
                     </td>
-                    <td>{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</td>
-                    <td>{{ $product->price * $product->countInOrder }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</td>
+                    {{-- Переменная $currencySymbol передана из App\Providers\ViewServiceProvider --}}
+                    <td>{{ $product->price }} {{ $currencySymbol }}</td>
+                    <td>{{ $product->price * $product->countInOrder }} {{ $currencySymbol }}</td>
                 </tr>
                 @endforeach
                         <tr>
                 <td colspan="3">Общая стоимость:</td>
-                <td>{{ $order->getFullPrice() }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</td>
+                <td>{{ $order->getFullPrice() }} {{ $currencySymbol }}</td>
             </tr>
             </tbody>
         </table>
