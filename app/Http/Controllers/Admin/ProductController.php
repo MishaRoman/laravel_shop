@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Property;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\Storage;
 
@@ -29,8 +30,9 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $properties = Property::get();
         $categories = Category::get();
-        return view('auth.products.form', compact('categories'));
+        return view('auth.products.form', compact('categories', 'properties'));
     }
 
     /**
@@ -72,7 +74,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::get();
-        return view('auth.products.form', compact('product', 'categories'));
+        $properties = Property::get();
+        return view('auth.products.form', compact('product', 'categories', 'properties'));
     }
 
     /**
@@ -97,6 +100,8 @@ class ProductController extends Controller
                 $params[$fieldName] = 0;
             }
         }
+
+        $product->properties()->sync($request->property_id);
 
         $product->update($params);
         return redirect()->route('products.index');

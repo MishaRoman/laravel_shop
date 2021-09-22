@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PropertyOption;
 use App\Models\Property;
+use App\Http\Requests\PropertyOptionRequest;
 
 class PropertyOptionController extends Controller
 {
@@ -52,7 +53,7 @@ class PropertyOptionController extends Controller
      */
     public function show(Property $property, PropertyOption $propertyOption)
     {
-        return view('auth.property-options.show', compact('propertyOption'));
+        return view('auth.property_options.show', compact('propertyOption'));
     }
 
     /**
@@ -91,6 +92,6 @@ class PropertyOptionController extends Controller
     {
         $propertyOption->delete();
 
-        return redirect()->route('property-options.index' compact('property'));
+        return redirect()->route('property-options.index', $property);
     }
 }

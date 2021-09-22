@@ -48,6 +48,7 @@
                                            value="@isset($property){{ $property->name_en }}@endisset">
                                 </div>
                             </div>
+                            <br>
 
                         <button class="btn btn-success">Сохранить</button>
                     </div>
