@@ -25,6 +25,8 @@ class UpdateSkuPropertyOptionTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('sku_proprety_option', function (Blueprint $table) {
+            $table->renameColumn('property_option_id', 'property_option');
+        });
     }
 }

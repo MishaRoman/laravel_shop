@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Sku;
 use Illuminate\Http\Request;
 use App\Classes\Basket;
 use Illuminate\Support\Facades\Auth;
@@ -44,24 +45,24 @@ class BasketController extends Controller
         return redirect()->route('home');
     }
 
-    public function basketAdd(Product $product)
+    public function basketAdd(Sku $sku)
     {
-        $result = (new Basket(true))->addProduct($product);
+        $result = (new Basket(true))->addSku($sku);
 
         if ($result) {
-            session()->flash('success', "Добавлен товар $product->name");
+            session()->flash('success', 'Добавлен товар ' . $sku->product->name);
         } else {
-            session()->flash('warning', "Товар $product->name в большем количестве недоступен для заказа");
+            session()->flash('warning', 'Товар ' . $sku->product->name . ' в большем количестве недоступен для заказа');
         }
 
         return redirect()->route('basket');
     }
 
-    public function basketRemove(Product $product)
+    public function basketRemove(Sku $sku)
     {
-        (new Basket())->removeProduct($product);
+        (new Basket())->removeSku($sku);
 
-        session()->flash('warning', "Удален товар $product->name");
+        session()->flash('warning', 'Удален товар ' . $sku->product->name);
 
         return redirect()->route('basket');
     }

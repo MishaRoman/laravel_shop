@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSkuPropertyOptionTable extends Migration
+class AlterSkusSoftDeletes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateSkuPropertyOptionTable extends Migration
      */
     public function up()
     {
-        Schema::create('sku_proprety_option', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('property_option');
-            $table->unsignedInteger('sku_id');
-            $table->timestamps();
+        Schema::table('skus', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateSkuPropertyOptionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sku_proprety_option');
+        Schema::table('skus', function (Blueprint $table) {
+            $table->dropColumn('deleted_at');
+        });
     }
 }
