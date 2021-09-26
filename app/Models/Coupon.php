@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+use App\Services\CurrencyConversion;
 
 class Coupon extends Model
 {
@@ -33,5 +35,22 @@ class Coupon extends Model
     public function isOnlyOnce()
     {
         return $this->only_once === 1;
+    }
+
+    public function availableForUse()
+    {
+        $this->refresh();
+        if (!$this->isOnlyOnce() || $this->orders->count() === 0) {
+            return is_null($this->expired_at) || $this->expired_at->gte(Carbon::now());
+        }
+    }
+
+    public function applyCost($price, Currency $currency = null)
+    {
+        if ($this->isAbsolute()) {
+            return $price - CurrencyConversion::convert($this->value, $this->currency->code, $currency->code);
+        } else {
+            return $price - ($price * $this->value / 100);
+        }
     }
 }

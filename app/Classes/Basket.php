@@ -4,6 +4,7 @@ namespace App\Classes;
 
 use App\Models\Order;
 use App\Models\Sku;
+use App\Models\Coupon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderCreated;
@@ -103,5 +104,15 @@ Class Basket
                 $pivotRow->countInOrder--;
             }
         }
+	}
+
+	public function setCoupon(Coupon $coupon)
+	{
+		$this->order->coupon()->associate($coupon);
+	}
+
+	public function clearCoupon()
+	{
+		$this->order->coupon->dissociate();
 	}
 }

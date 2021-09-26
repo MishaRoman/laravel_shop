@@ -45,12 +45,36 @@
                     <td>{{ $sku->price * $sku->countInOrder }} {{ $currencySymbol }}</td>
                 </tr>
                 @endforeach
-                        <tr>
-                <td colspan="3">Общая стоимость:</td>
-                <td>{{ $order->getFullPrice() }} {{ $currencySymbol }}</td>
-            </tr>
+                <tr>
+                    <td colspan="3">Общая стоимость:</td>
+                    @if($order->hasCoupon())
+                    <td>
+                        <strike>{{ $order->getFullPrice(false) }}</strike>
+                        <b>{{ $order->getFullPrice() }}</b> {{ $currencySymbol }}
+                    </td>
+                    @else
+                        <td>{{ $order->getFullPrice() }} {{ $currencySymbol }}</td>
+                    @endif
+                </tr>
             </tbody>
         </table>
+        @if(!$order->hasCoupon())
+            <div class="row">
+                <div class="form-inline pull-right">
+                    <form method="POST" action="{{ route('set-coupon') }}">
+                        @csrf
+                        <label for="coupon">Добавить купон:</label>
+                        <input class="form-control" type="text" name="coupon">
+                        <button type="submit" class="btn btn-success">Применить</button>
+                    </form>
+                </div>
+            </div>
+            @error('coupon')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        @else
+            <div>Вы используете купон {{ $order->coupon->code }}</div>
+        @endif
         <br>
         <div class="btn-group pull-right" role="group">
             <a type="button" class="btn btn-success" href="{{ route('basket-place') }}">Оформить заказ</a>
