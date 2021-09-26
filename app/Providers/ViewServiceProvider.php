@@ -26,7 +26,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer(['layouts.layout', 'categories'], 'App\ViewComposers\CategoriesComposer');
-        View::composer(['layouts.layout'], 'App\ViewComposers\CurrencyComposer');
+        View::composer(['layouts.layout', 'auth.coupons.form'], 'App\ViewComposers\CurrencyComposer');
         View::composer(['layouts.layout'], 'App\ViewComposers\BestProductsComposer');
 
         View::composer('*', function ($view) {

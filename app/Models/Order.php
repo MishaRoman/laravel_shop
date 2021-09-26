@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'currency_id', 'sum'];
+    protected $fillable = ['user_id', 'currency_id', 'sum', 'coupon_id'];
 
     public function skus()
     {
@@ -19,6 +19,11 @@ class Order extends Model
     public function currency()
     {
         return $this->belongsTo(Currency::class);
+    }
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
     }
 
     public function scopeActive($query)

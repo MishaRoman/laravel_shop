@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Models\Traits\Translatable;
-use App\Services\CurrencyConversion;
 
 class Product extends Model
 {
@@ -82,9 +81,6 @@ class Product extends Model
         return $this->recommend === 1;
     }
 
-    public function getPriceAttribute($value)
-    {
-        return round(CurrencyConversion::convert($value), 2);
-    }
+    
 
 }

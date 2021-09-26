@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\PropertyOptionController;
 use App\Http\Controllers\Admin\SkuController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Person\OrderController as PersonOrderController;
 
@@ -23,7 +24,7 @@ Auth::routes([
 
 Route::get('/locale/{locale}', [MainController::class, 'changeLocale'])->name('locale');
 
-Route::get('/currency/{code}', [MainController::class, 'changeCurrency'])->name('currency');
+Route::get('/currency/{currencyCode}', [MainController::class, 'changeCurrency'])->name('currency');
 
 Route::get('/reset', [ResetController::class, 'reset'])->name('reset');
 
@@ -46,6 +47,7 @@ Route::middleware(['set_locale'])->group(function() {
 		], function() {
 			Route::resource('categories', CategoryController::class);
 			Route::resource('products', ProductController::class);
+			Route::resource('coupons', CouponController::class);
 			Route::resource('products/{product}/skus', SkuController::class);
 			Route::resource('properties', PropertyController::class);
 			Route::resource('properties/{property}/property-options', PropertyOptionController::class);

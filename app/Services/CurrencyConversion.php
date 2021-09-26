@@ -52,27 +52,26 @@ class CurrencyConversion
         $originCurrency = self::$container[$originCurrencyCode];
 
         if ($originCurrency->code != self::DEFAULT_CURRENCY_CODE) {
+            if ($originCurrency->rate != 0 || $originCurrency->updated_at->startOfDay() != Carbon::now()->startOfDay()) {
+                CurrencyRates::getRates();
+                self::loadContainer();
+                $originCurrency = self::$container[$originCurrencyCode];
+            }
+        }
 
-	        if ($originCurrency->rate != 0 || $originCurrency->updated_at->startOfDay() != Carbon::now()->startOfDay()) {
-	        	CurrencyRates::getRates();
-	        	self::loadContainer();
-	        	$originCurrency = self::$container[$originCurrencyCode];
-	        }
-	    }
         if (is_null($targetCurrencyCode)) {
             $targetCurrencyCode = self::getCurrencyFromSession();
         }
 
         $targetCurrency = self::$container[$targetCurrencyCode];
-
+        
         if ($originCurrency->code != self::DEFAULT_CURRENCY_CODE) {
-	        if ($targetCurrency->rate == 0 || $targetCurrency->updated_at->startOfDay() != Carbon::now()->startOfDay()) {
-	        	CurrencyRates::getRates();
-	        	self::loadContainer();
-	        	$targetCurrency = self::$container[$originCurrencyCode];
-	        }
-	    }
-	    
+            if ($targetCurrency->rate == 0 || $targetCurrency->updated_at->startOfDay() != Carbon::now()->startOfDay()) {
+                CurrencyRates::getRates();
+                self::loadContainer();
+                $targetCurrency = self::$container[$targetCurrencyCode];
+            }
+        }	    
         return $sum / $originCurrency->rate * $targetCurrency->rate;
 	}
 
