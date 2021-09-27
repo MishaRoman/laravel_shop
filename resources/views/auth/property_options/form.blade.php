@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @isset($propertyOption)
     @section('title', 'Редактировать вариант свойства ' . $propertyOption->name)

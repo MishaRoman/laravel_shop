@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @isset($coupon)
     @section('title', 'Редактировать купон ' . $coupon->name)

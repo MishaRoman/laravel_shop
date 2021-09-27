@@ -1,28 +1,29 @@
 @extends('layouts.admin')
 
-@isset($property)
-    @section('title', 'Редактировать свойство ' . $property->name)
+
+@isset($merchant)
+    @section('title', 'Редактировать поставщика ' . $merchant->name)
 @else
-    @section('title', 'Создать свойство')
+    @section('title', 'Создать поставщика')
 @endisset
 
 @section('content')
     <div class="col-md-12">
-        @isset($property)
-            <h1>Редактировать Свойство <b>{{ $property->name }}</b></h1>
+        @isset($merchant)
+            <h1>Редактировать поставщика <b>{{ $merchant->name }}</b></h1>
                 @else
-                    <h1>Добавить Свойство</h1>
+                    <h1>Добавить поставщика</h1>
                 @endisset
 
                 <form method="POST" enctype="multipart/form-data"
-                      @isset($property)
-                      action="{{ route('properties.update', $property) }}"
+                      @isset($merchant)
+                      action="{{ route('merchants.update', $merchant) }}"
                       @else
-                      action="{{ route('properties.store') }}"
+                      action="{{ route('merchants.store') }}"
                     @endisset
                 >
                     <div>
-                        @isset($property)
+                        @isset($merchant)
                             @method('PUT')
                         @endisset
                         @csrf
@@ -33,22 +34,21 @@
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                                 <input type="text" class="form-control" name="name" id="name"
-                                       value="@isset($property){{ $property->name }}@endisset">
+                                       value="@isset($merchant){{ $merchant->name }}@endisset">
                             </div>
                         </div>
 
                             <br>
                             <div class="input-group row">
-                                <label for="name" class="col-sm-2 col-form-label">Название en: </label>
+                                <label for="email" class="col-sm-2 col-form-label">Email: </label>
                                 <div class="col-sm-6">
-                                    @error('name_en')
+                                    @error('email')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
-                                    <input type="text" class="form-control" name="name_en" id="name_en"
-                                           value="@isset($property){{ $property->name_en }}@endisset">
+                                    <input type="text" class="form-control" name="email" id="email"
+                                           value="@isset($merchant){{ $merchant->email }}@endisset">
                                 </div>
                             </div>
-                            <br>
 
                         <button class="btn btn-success">Сохранить</button>
                     </div>

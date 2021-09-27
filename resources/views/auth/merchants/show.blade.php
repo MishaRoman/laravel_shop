@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Вариант свойства ' . $propertyOption->name)
+@section('title', 'Поставщик ' . $merchant->name)
 
 @section('content')
     <div class="col-md-12">
-        <h1>Вариант свойства {{ $propertyOption->name }}</h1>
+        <h1>Поставщик {{ $merchant->name }}</h1>
         <table class="table">
             <tbody>
             <tr>
@@ -17,19 +17,15 @@
             </tr>
             <tr>
                 <td>ID</td>
-                <td>{{ $propertyOption->id }}</td>
-            </tr>
-            <tr>
-                <td>Свойство</td>
-                <td>{{ $propertyOption->property->name }}</td>
+                <td>{{ $merchant->id }}</td>
             </tr>
             <tr>
                 <td>Название</td>
-                <td>{{ $propertyOption->name }}</td>
+                <td>{{ $merchant->name }}</td>
             </tr>
             <tr>
-                <td>Название en</td>
-                <td>{{ $propertyOption->name_en }}</td>
+                <td>Email</td>
+                <td>{{ $merchant->email }}</td>
             </tr>
             </tbody>
         </table>

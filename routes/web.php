@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\PropertyController;
+use App\Http\Controllers\Admin\MerchantController;
 use App\Http\Controllers\Admin\PropertyOptionController;
 use App\Http\Controllers\Admin\SkuController;
 use App\Http\Controllers\Admin\CouponController;
@@ -48,6 +49,8 @@ Route::middleware(['set_locale'])->group(function() {
 			Route::resource('categories', CategoryController::class);
 			Route::resource('products', ProductController::class);
 			Route::resource('coupons', CouponController::class);
+			Route::resource('merchants', MerchantController::class);
+			Route::get('merchant/{merchant}/update_token', [MerchantController::class, 'updateToken'])->name('merchants.update_token');
 			Route::resource('products/{product}/skus', SkuController::class);
 			Route::resource('properties', PropertyController::class);
 			Route::resource('properties/{property}/property-options', PropertyOptionController::class);

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @isset($sku)
     @section('title', 'Редактировать Sku ' . $sku->name)
