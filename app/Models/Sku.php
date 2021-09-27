@@ -14,6 +14,8 @@ class Sku extends Model
 
     protected $fillable = ['count', 'product_id', 'price'];
 
+    protected $visible = ['id', 'count', 'price', 'product_name'];
+
     public function product()
     {
         return $this->belongsTo(Product::class);
@@ -40,5 +42,15 @@ class Sku extends Model
     public function getPriceAttribute($value)
     {
         return round(CurrencyConversion::convert($value), 2);
+    }
+
+    public function scopeAvailable($query)
+    {
+        return $query->where('count', '>', 0);
+    }
+
+    public function getProductNameAttribute()
+    {
+        return $this->product->name;
     }
 }
